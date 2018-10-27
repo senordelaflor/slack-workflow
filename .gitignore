@@ -1,0 +1,11 @@
+# Ignore system files
+.DS_Store
+
+# Ignore package folder
+node_modules/
+
+# Ignore environment variables
+.env
+
+# Ignore IDE generated files
+.history/

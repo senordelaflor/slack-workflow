@@ -1,0 +1,24 @@
+{
+  "env": {
+    "browser": false
+  },
+  "extends": ["standard"],
+  "rules": {
+    "space-before-function-paren": [
+      "error",
+      { "named": "never", "anonymous": "never" }
+    ],
+    "quotes": ["error", "double"],
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline"
+      }
+    ],
+    "prefer-const": ["error"],
+    "no-unused-vars": ["error"]
+  }
+}
