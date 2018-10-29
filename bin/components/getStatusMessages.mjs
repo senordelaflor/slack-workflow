@@ -15,7 +15,6 @@ const nowFormat = moment()
 
 const getStatusMessages = async () => {
   const {
-    isWorking,
     isFriday,
     isCurrentTimeAfterWorkTimeToday,
     isWeekendDay,
@@ -48,8 +47,8 @@ const getStatusMessages = async () => {
     "h:mm"
   )} hrs worked ${isWeekendDay ? "Friday" : "today"}`
   const awayStatusMessage = `Back at ${formattedComeBackTime}${dayMessage} · ${workingStatusMessage}`
-  const statusMessage = isWorking ? workingStatusMessage : awayStatusMessage
-  const statusEmoji = isWorking ? "☕" : ":spiral_calendar_pad:"
+  const statusMessage = global.isWorking ? workingStatusMessage : awayStatusMessage
+  const statusEmoji = global.isWorking ? "☕" : ":spiral_calendar_pad:"
   return { statusMessage, statusEmoji, workingStatusMessage, comeBackTime }
 }
 
