@@ -42,9 +42,10 @@ const getTotalWorkHoursForToday = async () => {
   const workDaysSinceBeginningOfPayPeriod = isLastWeekOfPayPeriod
     ? workDaysInAWeek + todayStart.weekday()
     : todayStart.weekday()
-  const applyTimeAdjustment = moment(timeAdjustmentPayPeriodStartDate)
-    .tz("America/New_York")
+  const applyTimeAdjustment = moment
+    .tz(timeAdjustmentPayPeriodStartDate, "America/New_York")
     .isSame(beginningOfPayPeriod)
+  console.log("Apply time adjustment: " + applyTimeAdjustment)
   const workHoursSinceBeginningOfPayPeriod =
     parseFloat(workDaysSinceBeginningOfPayPeriod * workHoursInDay) +
     (applyTimeAdjustment ? parseFloat(timeAdjustmentInHours) : 0)
