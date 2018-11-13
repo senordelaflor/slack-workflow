@@ -2,6 +2,11 @@ import moment from "moment"
 import "moment-timezone"
 import "moment-duration-format"
 import getTogglDurationForPeriodInSeconds from "./getToggleDuration"
+import dotenv from "dotenv"
+
+const timeAdjustmentInHours = process.env.TIME_ADJUSTMENT_IN_HOURS
+const timeAdjustmentPayPeriodStartDate =
+  process.env.TIME_ADJUSTMENT_PAY_PERIOD_START_DATE
 
 const getTotalWorkHoursForToday = async () => {
   const {
@@ -31,19 +36,24 @@ const getTotalWorkHoursForToday = async () => {
     beginningOfPayPeriodFormat,
     todayStartFormat
   )
-  const timeWorkedInPayPeriodInHrUntilYesterday = moment
-    .duration(timeWorkedInPayPeriodInSeconds, "seconds")
-    .asHours()
+  const timeWorkedInPayPeriodInHrUntilYesterday = parseFloat(
+    moment.duration(timeWorkedInPayPeriodInSeconds, "seconds").asHours()
+  )
   const workDaysSinceBeginningOfPayPeriod = isLastWeekOfPayPeriod
     ? workDaysInAWeek + todayStart.weekday()
     : todayStart.weekday()
+  const applyTimeAdjustment = moment(timeAdjustmentPayPeriodStartDate)
+    .tz("America/New_York")
+    .isSame(beginningOfPayPeriod)
   const workHoursSinceBeginningOfPayPeriod =
-    workDaysSinceBeginningOfPayPeriod * workHoursInDay
+    parseFloat(workDaysSinceBeginningOfPayPeriod * workHoursInDay) +
+    (applyTimeAdjustment ? parseFloat(timeAdjustmentInHours) : 0)
   const remainingWorkHoursForToday = moment.duration(
     workHoursSinceBeginningOfPayPeriod -
       timeWorkedInPayPeriodInHrUntilYesterday,
     "hours"
   )
+
   return remainingWorkHoursForToday
 }
 

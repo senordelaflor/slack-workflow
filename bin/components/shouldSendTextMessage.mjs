@@ -16,7 +16,7 @@ const shouldSendTextMessage = comeBackTimeET => {
         moment()
           .tz("America/New_York")
           .hours(12)
-          .minutes(33)
+          .minutes(32)
       ))
   const isRegularEndOfFirstShift =
     !global.isMonday &&
@@ -30,14 +30,14 @@ const shouldSendTextMessage = comeBackTimeET => {
       moment()
         .tz("America/New_York")
         .hours(10)
-        .minutes(33)
+        .minutes(32)
     )
   const isComeBackTimeReminderTime =
     currentTimeET.isAfter(
       comeBackTimeET && comeBackTimeET.clone().subtract(15, "minutes")
     ) &&
     currentTimeET.isBefore(
-      comeBackTimeET && comeBackTimeET.clone().subtract(12, "minutes")
+      comeBackTimeET && comeBackTimeET.clone().subtract(13, "minutes")
     ) &&
     global.isCurrentTimeBetweenWorkTimeToday
   return (

@@ -14,11 +14,7 @@ const nowFormat = moment()
   .format()
 
 const getStatusMessages = async () => {
-  const {
-    isFriday,
-    isCurrentTimeAfterWorkTimeToday,
-    isWeekendDay,
-  } = global
+  const { isFriday, isCurrentTimeAfterWorkTimeToday, isWeekendDay } = global
   const timeWorkedTodayInSeconds = await getTogglDurationForPeriodInSeconds(
     todayStartFormat,
     nowFormat
@@ -44,10 +40,13 @@ const getStatusMessages = async () => {
         ? " Tomorrow"
         : ""
   const workingStatusMessage = `Aprox ${formattedRemainingWorkTimeForToday} hrs left · ${timeWorkedTodayInHrAndMin}/${totalWorkHoursForToday.format(
-    "h:mm"
+    "h:mm",
+    { trim: false }
   )} hrs worked ${isWeekendDay ? "Friday" : "today"}`
   const awayStatusMessage = `Back at ${formattedComeBackTime}${dayMessage} · ${workingStatusMessage}`
-  const statusMessage = global.isWorking ? workingStatusMessage : awayStatusMessage
+  const statusMessage = global.isWorking
+    ? workingStatusMessage
+    : awayStatusMessage
   const statusEmoji = global.isWorking ? "☕" : ":spiral_calendar_pad:"
   return { statusMessage, statusEmoji, workingStatusMessage, comeBackTime }
 }
