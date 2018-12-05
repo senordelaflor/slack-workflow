@@ -9,11 +9,6 @@ const todayStart = moment()
   .tz("America/New_York")
   .hours(0)
 const todayStartFormat = todayStart.format()
-const todayEnd = moment()
-  .tz("America/New_York")
-  .hours(23)
-  .minutes(59)
-const todayEndFormat = todayEnd.format()
 const mondayOfThisWeek = moment()
   .tz("America/New_York")
   .weekday(1)
@@ -42,16 +37,16 @@ const getStatusMessages = async () => {
     "h:mm",
     { trim: false }
   )
-  const fullTimeWorkedInPayPeriodInSeconds = await getTogglDurationForPeriodInSeconds(
+  const fullTimeWorkedThisWeekInSeconds = await getTogglDurationForPeriodInSeconds(
     mondayOfThisWeekFormat,
-    todayEndFormat
+    nowFormat
   )
 
   const formattedBtvHours = moment
-    .duration(fullTimeWorkedInPayPeriodInSeconds.btvDuration, "seconds")
+    .duration(fullTimeWorkedThisWeekInSeconds.btvDuration, "seconds")
     .format("h:mm", { trim: false })
   const formattedWuHours = moment
-    .duration(fullTimeWorkedInPayPeriodInSeconds.wuDuration, "seconds")
+    .duration(fullTimeWorkedThisWeekInSeconds.wuDuration, "seconds")
     .format("h:mm", { trim: false })
   const dayMessage =
     (isFriday && isCurrentTimeAfterWorkTimeToday) || isWeekendDay
