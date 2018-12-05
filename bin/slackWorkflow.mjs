@@ -46,15 +46,10 @@ global.workHoursInDay = 6
 
 const performTasks = async () => {
   if (global.isWeekendDay) return
-  const {
-    statusMessage,
-    statusEmoji,
-    workingStatusMessage,
-    comeBackTime,
-  } = await getStatusMessages()
+  const { statusMessage, statusEmoji, comeBackTime } = await getStatusMessages()
   console.log(statusMessage)
   updateSlackStatus(statusMessage, statusEmoji)
-  sendTextMessage(comeBackTime, workingStatusMessage)
+  sendTextMessage(comeBackTime, statusMessage)
   updateSlackDnd()
 }
 

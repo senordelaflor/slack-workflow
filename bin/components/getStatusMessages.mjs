@@ -55,18 +55,18 @@ const getStatusMessages = async () => {
     .format("h:mm", { trim: false })
   const dayMessage =
     (isFriday && isCurrentTimeAfterWorkTimeToday) || isWeekendDay
-      ? " Mon"
+      ? "Mon"
       : isCurrentTimeAfterWorkTimeToday ||
         remainingWorkTimeForToday < moment.duration(600, "seconds")
-        ? " tmr"
-        : ""
+        ? "tmrw"
+        : "soon"
   const workingStatusMessage = `Aprox ${formattedRemainingWorkTimeForToday}h left · ${timeWorkedTodayInHrAndMin}/${totalWorkHoursForToday.format(
     "h:mm",
     { trim: false }
   )}h worked ${
-    isWeekendDay ? "Fri" : "tdy"
-  } · BTV ${formattedBtvHours}/15h | WU: ${formattedWuHours}/15h`
-  const awayStatusMessage = `Back at ${formattedComeBackTime}${dayMessage} · ${workingStatusMessage}`
+    isWeekendDay ? "Fri" : "today"
+  } · BTV: ${formattedBtvHours}/15h · WU: ${formattedWuHours}/15h`
+  const awayStatusMessage = `Back ${dayMessage} · ${workingStatusMessage}`
   const statusMessage = global.isWorking
     ? workingStatusMessage
     : awayStatusMessage

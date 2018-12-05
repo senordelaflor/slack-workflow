@@ -4,6 +4,8 @@ import TogglClient from "toggl-api"
 dotenv.config()
 const apiToken = process.env.TOGGL_API_TOKEN
 const toggl = new TogglClient({ apiToken })
+const btvTogglProjectId = 140861364
+const wuTogglProjectId = 140861464
 
 const getTogglDurationInSeconds = togglData => {
   let duration = 0
@@ -22,10 +24,13 @@ const getTogglDurationInSeconds = togglData => {
       duration += durationInSec
       entryDuration = durationInSec
     }
-    if (data.description) {
-      const code = data.description.substring(0, 2)
-      if (code === "BT") btvDuration += entryDuration
-      if (code === "WU") wuDuration += entryDuration
+
+    const projectId = data.pid
+    if (projectId === btvTogglProjectId) {
+      btvDuration += entryDuration
+    }
+    if (projectId === wuTogglProjectId) {
+      wuDuration += entryDuration
     }
   })
   return { duration, btvDuration, wuDuration }
