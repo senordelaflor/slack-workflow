@@ -8,7 +8,11 @@ const toggl = new TogglClient({ apiToken })
 const getTogglDurationInSeconds = togglData => {
   let duration = 0
   togglData.forEach(data => {
-    if (!data.duration) return
+    if (
+      !data.duration ||
+      !data.pid ||
+      data.pid !== parseInt(process.env.TOGGL_PROJECT_ID)
+    ) { return }
     if (data.duration > 0) {
       duration += data.duration
     } else if (data.duration < 0) {
