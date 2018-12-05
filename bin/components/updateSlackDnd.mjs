@@ -4,6 +4,8 @@ import dotenv from "dotenv"
 dotenv.config()
 
 const updateSlackDnd = () => {
+  if (process.env.STOP_DND) return
+
   if (!global.isWorking) {
     axios.get(
       encodeURI(

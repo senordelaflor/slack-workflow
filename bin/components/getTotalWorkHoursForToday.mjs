@@ -37,7 +37,9 @@ const getTotalWorkHoursForToday = async () => {
     todayStartFormat
   )
   const timeWorkedInPayPeriodInHrUntilYesterday = parseFloat(
-    moment.duration(timeWorkedInPayPeriodInSeconds, "seconds").asHours()
+    moment
+      .duration(timeWorkedInPayPeriodInSeconds.duration, "seconds")
+      .asHours()
   )
   const workDaysSinceBeginningOfPayPeriod = isLastWeekOfPayPeriod
     ? workDaysInAWeek + todayStart.weekday()
