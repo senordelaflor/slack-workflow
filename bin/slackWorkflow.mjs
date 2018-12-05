@@ -6,8 +6,6 @@ import "moment-timezone"
 import "moment-duration-format"
 import getStatusMessages from "./components/getStatusMessages"
 import updateSlackStatus from "./components/updateSlackStatus"
-import sendTextMessage from "./components/sendTextMessage"
-import updateSlackDnd from "./components/updateSlackDnd"
 
 dotenv.config()
 
@@ -46,16 +44,9 @@ global.workHoursInDay = 6
 
 const performTasks = async () => {
   if (global.isWeekendDay) return
-  const {
-    statusMessage,
-    statusEmoji,
-    workingStatusMessage,
-    comeBackTime,
-  } = await getStatusMessages()
+  const { statusMessage, statusEmoji } = await getStatusMessages()
   console.log(statusMessage)
   updateSlackStatus(statusMessage, statusEmoji)
-  sendTextMessage(comeBackTime, workingStatusMessage)
-  updateSlackDnd()
 }
 
 performTasks()
