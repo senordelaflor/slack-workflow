@@ -60,7 +60,7 @@ const getStatusMessages = async () => {
     { trim: false }
   )}h worked ${
     isWeekendDay ? "Fri" : "today"
-  } · BTV: ${formattedBtvHours}/15h · WU: ${formattedWuHours}/15h`
+  }`
   const awayStatusMessage = `Back ${dayMessage} · ${workingStatusMessage}`
   const statusMessage = global.isWorking
     ? workingStatusMessage
