@@ -42,7 +42,7 @@ global.isWeekendDay = global.dayOfTheWeek === 0 || global.dayOfTheWeek === 6
 global.isFriday = global.dayOfTheWeek === 5
 global.isMonday = global.dayOfTheWeek === 1
 global.workDaysInAWeek = 5
-global.workHoursInDay = 6
+global.workHoursInDay = 7
 
 const performTasks = async () => {
   if (global.isWeekendDay) return
